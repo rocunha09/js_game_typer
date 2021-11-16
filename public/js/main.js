@@ -9,6 +9,8 @@ $(document).ready(()=>{
     iniciaCronometro()
     reiniciaJogo()
     comparaTexto()
+    removerDadosDoPlacar()
+
 })
 
 function atualizaTamanhoFrase(){
@@ -51,7 +53,8 @@ function finalizaJogo(){
     $("#botao-reiniciar").attr("disabled", false)
     
     //ao final insere os dadso no placar
-    insereDadosNoPlacar(usuario, $("#contador-palavras").text())
+    var qtdPalavras = $("#contador-palavras").text()
+    insereDadosNoPlacar(usuario, qtdPalavras)
     
     //estilo
     campo.addClass("campo-digitacao-desabilitado")
@@ -97,10 +100,4 @@ function comparaTexto(){
 
 function strcmp(strA, strB){
     return strA === strB ? true : false
-}
-
-function insereDadosNoPlacar(usuario, qtdPalavras){
-    var tabela = $(".placar").find("tbody")
-    var linha = `<tr><td>${usuario}</td><td>${qtdPalavras}</td></tr>`
-    tabela.prepend(linha)
 }
