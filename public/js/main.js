@@ -38,15 +38,23 @@ function iniciaCronometro(){
             $("#tempo").text(tempo);
             
             if (tempo < 1) {
-                campo.attr("disabled", true)
                 clearInterval(cronometro) //para a contagem
-                $("#botao-reiniciar").attr("disabled", false)
-
-                //estilo
-                campo.addClass("campo-digitacao-desabilitado")
+                finalizaJogo()
             }
         }, 1000);
     })
+}
+
+function finalizaJogo(){
+    var usuario = "João"
+    campo.attr("disabled", true)
+    $("#botao-reiniciar").attr("disabled", false)
+    
+    //ao final insere os dadso no placar
+    insereDadosNoPlacar(usuario, $("#contador-palavras").text())
+    
+    //estilo
+    campo.addClass("campo-digitacao-desabilitado")
 }
 
 function reiniciaJogo(){
@@ -76,8 +84,6 @@ function comparaTexto(){
     campo.on("input", ()=>{
         var campoVal = campo.val()
         var parteFrase = frase.substr(0, campoVal.length)
-        console.log("parte frase: " + parteFrase)
-        console.log("digitado: " +campo.val())
 
         if(strcmp(campoVal, parteFrase)){
             campo.removeClass("digitacao-errada")
@@ -91,4 +97,10 @@ function comparaTexto(){
 
 function strcmp(strA, strB){
     return strA === strB ? true : false
+}
+
+function insereDadosNoPlacar(usuario, qtdPalavras){
+    var tabela = $(".placar").find("tbody")
+    var linha = `<tr><td>${usuario}</td><td>${qtdPalavras}</td></tr>`
+    tabela.prepend(linha)
 }
