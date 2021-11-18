@@ -9,6 +9,16 @@ function insereDadosNoPlacar(usuario, qtdPalavras){
         removerDadosDoPlacar($("#linha-"+numLinha))
     })
     tabela.prepend(linha)
+
+    $(".placar").slideDown(500)
+    scrollPlacar()
+}
+
+function scrollPlacar(){
+    var posicaoPlacar = $(".placar").offset().top
+    $("html, body").animate({
+        scrollTop: (posicaoPlacar+300)+"px"
+    }, 1000)
 }
 
 function criaLinha(usuario, qtdPalavras, numLinha){
@@ -30,5 +40,17 @@ function criaLinha(usuario, qtdPalavras, numLinha){
 }
 
 function removerDadosDoPlacar(id){   
-        $(id).remove()
+    var linha = $(id) 
+        linha.fadeOut() //efeito fadeOut
+        setTimeout(() => {
+            linha.remove() //remove do DOM
+        }, 1000);
+}
+
+
+$("#botao-placar").click(mostraPlacar)
+
+function mostraPlacar(){
+    //$(".placar").css("display", "block")
+    $(".placar").stop().slideToggle(800); //hide - show - toggle //slide aplica efeito
 }
