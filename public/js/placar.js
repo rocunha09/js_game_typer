@@ -103,8 +103,9 @@ function sincronizaPlacar(){
     }
     
     $.post("http://localhost:3000/placar", dados, ()=>{
-        console.log("dados salvos no servidor")
+        //console.log("dados salvos no servidor")
     }).fail(()=>{
+        alert("Não foi possível sincronizar no momento, tente novamente mais tarde...")
         $("#erro").show()
        
     setTimeout(() => {
