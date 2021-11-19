@@ -1,7 +1,6 @@
 
 var campo = $(".campo-digitacao")
 var tempoInicial = tempo
-var frase = $(".frase").text()
 
 $(document).ready(()=>{
     atualizaTamanhoFrase()
@@ -14,8 +13,15 @@ $(document).ready(()=>{
 })
 
 function atualizaTamanhoFrase(){
-    var palavras = frase.split(" ")
-    var tamanhoFrase = $("#tamanho-frase").text(palavras.length)
+    var frase = $(".frase").text()
+    var qtdPalavras = frase.split(" ").length
+    var tamanhoFrase = $("#tamanho-frase")
+    tamanhoFrase.text(qtdPalavras)
+}
+
+function atualizaTempoInicial(tempo) {
+    tempoInicial = tempo
+    $("#tempo").text(tempo);
 }
 
 function iniciaContadores(){
@@ -30,9 +36,8 @@ function iniciaContadores(){
 }
 
 function iniciaCronometro(){
-    var tempo = $("#tempo").text()
-    tempoInicial = tempo
     campo.one("focus", ()=>{
+        var tempo = $("#tempo").text()
         var cronometro = setInterval(()=> {
             $("#botao-reiniciar").attr("disabled", true)
             
@@ -85,6 +90,7 @@ function reiniciaJogo(){
 
 function comparaTexto(){
     campo.on("input", ()=>{
+        var frase = $(".frase").text()
         var campoVal = campo.val()
         var parteFrase = frase.substr(0, campoVal.length)
 
