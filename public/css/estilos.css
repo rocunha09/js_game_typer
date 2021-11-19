@@ -43,3 +43,8 @@ body{
 #spinner{
     display: none;
 }
+
+#frase-id{
+    margin-left: 15px;
+    width: 50px;
+}
