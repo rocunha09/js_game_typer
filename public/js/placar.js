@@ -1,4 +1,5 @@
 var countLinha = 0;
+
 function insereDadosNoPlacar(usuario, qtdPalavras){
     var tabela = $(".placar").find("tbody")
     var numLinha = countLinha++
@@ -53,4 +54,65 @@ $("#botao-placar").click(mostraPlacar)
 function mostraPlacar(){
     //$(".placar").css("display", "block")
     $(".placar").stop().slideToggle(800); //hide - show - toggle //slide aplica efeito
+}
+
+function recuperaPlacar(){
+    $("#spinner").show()
+    $.get("http://localhost:3000/placar", (dataList)=>{
+
+        dataList.forEach((data)=>{
+            insereDadosNoPlacar(data.usuario, data.pontos)
+        })
+
+    }).fail(()=>{
+        $("#erro").show()
+       
+    setTimeout(() => {
+            $("#erro").toggle()
+        }, 2000)
+
+    }).always(()=>{
+        $("#spinner").toggle()
+    })
+
+}
+
+$("#botao-sync").click(sincronizaPlacar)
+
+function sincronizaPlacar(){
+    $("#spinner").show()
+    var placar = []
+    var linhas = $(".placar>table>tbody>tr")
+    
+    for(var i = 0; i < linhas.length; i++){
+        var linha = $(linhas[i])
+
+        var usuario = linha.children().eq(0).text()
+        var palavras = linha.children().eq(1).text()
+
+        var jogador = {
+            "usuario": usuario,
+            "pontos": palavras
+        }
+
+        placar.push(jogador)
+    }
+    
+    var dados = {
+        placar: placar
+    }
+    
+    $.post("http://localhost:3000/placar", dados, ()=>{
+        console.log("dados salvos no servidor")
+    }).fail(()=>{
+        $("#erro").show()
+       
+    setTimeout(() => {
+            $("#erro").toggle()
+        }, 2000)
+
+    }).always(()=>{
+        $("#spinner").toggle()
+    })
+
 }

@@ -1,6 +1,5 @@
 
 var campo = $(".campo-digitacao")
-var tempoInicial = tempo
 
 $(document).ready(()=>{
     atualizaTamanhoFrase()
@@ -9,7 +8,7 @@ $(document).ready(()=>{
     reiniciaJogo()
     comparaTexto()
     removerDadosDoPlacar()
-
+    recuperaPlacar()
 })
 
 function atualizaTamanhoFrase(){
@@ -65,6 +64,7 @@ function finalizaJogo(){
     campo.addClass("campo-digitacao-desabilitado")
 }
 
+var tempoInicial = tempo
 function reiniciaJogo(){
     var btnReiniciar = $("#botao-reiniciar")
     btnReiniciar.on("click", ()=>{
