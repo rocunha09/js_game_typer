@@ -80,7 +80,6 @@ function recuperaPlacar(){
 $("#botao-sync").click(sincronizaPlacar)
 
 function sincronizaPlacar(){
-    $("#spinner").show()
     var placar = []
     var linhas = $(".placar>table>tbody>tr")
     
@@ -103,17 +102,16 @@ function sincronizaPlacar(){
     }
     
     $.post("http://localhost:3000/placar", dados, ()=>{
-        //console.log("dados salvos no servidor")
-    }).fail(()=>{
-        alert("Não foi possível sincronizar no momento, tente novamente mais tarde...")
-        $("#erro").show()
-       
-    setTimeout(() => {
-            $("#erro").toggle()
-        }, 2000)
+        $(".tooltip").tooltipster("open")
 
+    }).fail(()=>{
+        $(".tooltip").tooltipster("open").tooltipster("content", "Falha ao sincronizar placar, tente novamente mais tarde") 
+       
     }).always(()=>{
-        $("#spinner").toggle()
+        setTimeout(() => {
+            $(".tooltip").tooltipster("close")
+            
+        }, 2000)
     })
 
 }
