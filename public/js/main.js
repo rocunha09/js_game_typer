@@ -9,6 +9,11 @@ $(document).ready(()=>{
     comparaTexto()
     removerDadosDoPlacar()
     recuperaPlacar()
+
+    $("#usuarios").selectize({
+        create: true,
+        sortField: 'text'
+    })
 })
 
 function atualizaTamanhoFrase(){
@@ -52,7 +57,7 @@ function iniciaCronometro(){
 }
 
 function finalizaJogo(){
-    var usuario = "João"
+    var usuario = $("#usuarios").val()
     campo.attr("disabled", true)
     $("#botao-reiniciar").attr("disabled", false)
     
